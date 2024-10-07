@@ -57,8 +57,10 @@ pipeline{
             withCredentials([usernamePassword(credentialsId: 'AWS', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     
                     sh '''
-                    #sed -i "s/IMAGE_VERSION/$VERSION/g" task-defination.json
+                    sed -i "s/IMAGE_VERSION/$VERSION/g" task-defination.json
                     aws ecs register-task-definition --cli-input-json file://AWS/task-defination.json > output.json
+                   TD_VERSION=$(jq -r '.taskDefinitionArn' output.json | awk -F ':' '{print $NF}' | awk -F '"' '{print $1}')
+                   echo $TD_VERSION
 
                     '''
 
