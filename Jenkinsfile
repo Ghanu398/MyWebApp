@@ -28,8 +28,8 @@ pipeline{
 
             steps{
                 sh '''
-                VERSION=$(echo "$VERSION + 0.1" | bc)
-                    docker image build -t $AWS_ECR/$IMAGE_NAME:$VERSION .
+                VERSION=$(awk -v ver="$VERSION" 'BEGIN {print ver + 0.1}')
+                docker image build -t $AWS_ECR/$IMAGE_NAME:$VERSION .
                 '''
             
             withCredentials([usernamePassword(credentialsId: 'AWS', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
