@@ -28,7 +28,7 @@ pipeline{
 
             steps{
                 sh '''
-                VERSION=$(( $VERSION + 1 ))
+                VERSION=$(echo "$VERSION + 0.1" | bc)
                     docker image build -t $AWS_ECR/$IMAGE_NAME:$VERSION .
                 '''
             
@@ -58,7 +58,8 @@ pipeline{
             withCredentials([usernamePassword(credentialsId: 'AWS', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     
                     sh '''
-                    aws ecs register-task-definition --cli-input-json file://AWS/task-defination.json > task-definition.json
+                    sed -i "s/IMAGE_VERSION/$VERSION/g" task-defination.json
+                    aws ecs register-task-definition --cli-input-json file://AWS/task-defination.json > output.json
 
                     '''
 

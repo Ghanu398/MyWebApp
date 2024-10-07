@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "nginx",
-            "image": "533267431526.dkr.ecr.us-east-1.amazonaws.com/dotnet",
+            "image": "533267431526.dkr.ecr.us-east-1.amazonaws.com/dotnet/IMAGE_VERSION",
             "cpu": 0,
             "portMappings": [
                 {
