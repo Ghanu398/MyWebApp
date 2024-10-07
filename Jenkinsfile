@@ -43,7 +43,7 @@ pipeline{
         }
 
         
-        stage("ECS_TD"){
+        stage("ECS_Deploy"){
             agent {
                 docker{
                     image 'my-aws-cli'
@@ -61,7 +61,8 @@ pipeline{
                     aws ecs register-task-definition --cli-input-json file://AWS/task-defination.json > output.json
                    TD_VERSION=$(jq -r '.taskDefinition.taskDefinitionArn' output.json | awk -F ':' '{print $NF}' | awk -F '"' '{print $1}')
                    echo $TD_VERSION
-
+                    aws ecs update-service --cluster dotnet-cluster --service learn-docker --task-definition test-task-defination:$TD_VERSION
+                    aws ecs wait services-stable --cluster dotnet-cluster --services learn-docker
                     '''
 
               
