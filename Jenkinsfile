@@ -1,5 +1,11 @@
 pipeline{
     agent any
+
+    environment {
+        AWS_DEFAULT_REGION = 'us-east-1'
+        AWS_ECR = '533267431526.dkr.ecr.us-east-1.amazonaws.com'
+        IMAGE_NAME = 'dotnet'
+    }
     stages{
         stage("Image build"){
             steps{
@@ -9,6 +15,22 @@ pipeline{
             }
            
             }
+
+        stage("Build"){
+            agent{
+                docker{
+                    image 'my-aws-cli'
+                    reuseNode true
+                    args "-u root -v /var/run/docker.sock:/var/run/docker.sock"
+                }
+            }
+
+            steps{
+                sh '''
+                    docker image build -t dotnet .
+                '''
+            }
+        }
         
         stage("ECS_TD"){
             agent {
