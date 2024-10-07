@@ -1,9 +1,9 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:533267431526:task-definition/test-task-defination:20",
+    "family": "test-task-defination",
     "containerDefinitions": [
         {
             "name": "nginx",
-            "image": "533267431526.dkr.ecr.us-east-1.amazonaws.com/dotnet/IMAGE_VERSION",
+            "image": "533267431526.dkr.ecr.us-east-1.amazonaws.com/dotnet",
             "cpu": 0,
             "portMappings": [
                 {
@@ -20,37 +20,11 @@
             "systemControls": []
         }
     ],
-    "family": "test-task-defination",
     "executionRoleArn": "arn:aws:iam::533267431526:role/ecs_execuction_role",
     "networkMode": "awsvpc",
-    "revision": 20,
-    "volumes": [],
-    "status": "ACTIVE",
-    "requiresAttributes": [
-        {
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
-            "name": "ecs.capability.execution-role-ecr-pull"
-        },
-        {
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-        },
-        {
-            "name": "ecs.capability.task-eni"
-        }
-    ],
-    "placementConstraints": [],
-    "compatibilities": [
-        "EC2",
-        "FARGATE"
-    ],
     "requiresCompatibilities": [
         "FARGATE"
     ],
     "cpu": "256",
-    "memory": "512",
-    "registeredAt": "2024-10-07T11:10:38.581Z",
-    "registeredBy": "arn:aws:iam::533267431526:root",
-    "tags": []
+    "memory": "512"
 }
