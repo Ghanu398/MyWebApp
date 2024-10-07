@@ -59,7 +59,7 @@ pipeline{
                     sh '''
                     sed -i "s/IMAGE_VERSION/$VERSION/g" AWS/task-defination.json
                     aws ecs register-task-definition --cli-input-json file://AWS/task-defination.json > output.json
-                   TD_VERSION=$(jq -r '.taskDefinitionArn' output.json | awk -F ':' '{print $NF}' | awk -F '"' '{print $1}')
+                   TD_VERSION=$(jq -r '.taskDefinition.taskDefinitionArn' output.json | awk -F ':' '{print $NF}' | awk -F '"' '{print $1}')
                    echo $TD_VERSION
 
                     '''
