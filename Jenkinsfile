@@ -28,7 +28,6 @@ pipeline{
 
             steps{
                 sh '''
-                VERSION=$(awk -v ver="$VERSION" 'BEGIN {print ver + 0.1}')
                 docker image build -t $AWS_ECR/$IMAGE_NAME:$VERSION .
                 '''
             
